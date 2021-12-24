@@ -7,7 +7,7 @@ export const useApi = () => {
       try {
          const response = await fetch(`${base_url}/transactions`);
          const data = await response.json();
-         return data;
+         return data.transactions;
       } catch(err) {
          console.error('Error[getTransactions]', { 
             err,
@@ -17,8 +17,20 @@ export const useApi = () => {
       }
    }
 
-   function postTransaction(transaction: Transaction) {
-
+   async function postTransaction(transaction: Transaction) {
+      try {
+         const response = await fetch(`${base_url}/transactions`, {
+            method: 'POST',
+            body: JSON.stringify(transaction),
+         });
+         const data = await response.json();
+         return data.transactions;
+      } catch(err) {
+         console.error('Error[postTransaction]', { 
+            err,
+            message: 'Error in get Route, please try again later!'
+         });
+      }
    }
 
    return {

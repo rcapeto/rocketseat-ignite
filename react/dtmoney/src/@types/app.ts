@@ -23,5 +23,5 @@ export type ReducerActions =
    { type: 'SET_VALUES_OUTCOME', params: { outcome: number } };
 
 export interface AppContextValues extends ReducerState {
-
+   updateTransactions: (transaction: Transaction) => void;
 };

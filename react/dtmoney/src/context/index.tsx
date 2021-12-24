@@ -1,6 +1,6 @@
-import { createContext, useContext, FunctionComponent, useEffect } from 'react';
+import { createContext, useContext, FunctionComponent, useEffect, useState } from 'react';
 
-import { AppContextValues } from '../@types/app';
+import { AppContextValues, Transaction } from '../@types/app';
 import { useAppReducer } from '../reducer';
 import { useApi } from '../api';
 
@@ -9,6 +9,15 @@ const AppContext = createContext({} as AppContextValues);
 export const AppCtxProvider: FunctionComponent = ({ children }) => {
    const [appState, appDispatch] = useAppReducer();
    const { getTransactions } = useApi();
+
+   const updateTransactions = (transaction: Transaction) => {
+      appDispatch({
+         type: 'SET_TRANSACTIONS',
+         params: {
+            transactions: [...appState.transactions, transaction]
+         }
+      });
+   };
 
    const handleGetTransactions = async () => {
       const transactions = await getTransactions();
@@ -53,7 +62,12 @@ export const AppCtxProvider: FunctionComponent = ({ children }) => {
    }, [appState.transactions]);
    
    return(
-      <AppContext.Provider value={appState}>
+      <AppContext.Provider 
+         value={{
+            ...appState,
+            updateTransactions
+         }}
+      >
          { children }
       </AppContext.Provider>
    );

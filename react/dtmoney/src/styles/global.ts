@@ -68,6 +68,26 @@ const GlobalStyle = createGlobalStyle`
       opacity: .6;
       cursor: not-allowed;
    }
+
+   .react-modal-overlay {
+      background-color: rgba(0, 0, 0, 0.5);
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+   }
+
+   .react-modal-content {
+      background-color: var(--shape);
+      width: 100%;
+      max-width: 576px;
+      padding: 3rem; 
+      border-radius: 0.24rem;
+   }
 `;
 
 export default GlobalStyle;

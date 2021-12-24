@@ -1,4 +1,4 @@
-import { createServer } from 'miragejs';
+import { createServer, Model } from 'miragejs';
 import { Transaction } from '../@types/app';
 
 const transactions: Transaction[] = [
@@ -30,10 +30,24 @@ const transactions: Transaction[] = [
 
 export function startServer() {
    createServer({
+      models: {
+         transactions: Model,
+      },
+
+      seeds(server) {
+         server.db.loadData({
+            transactions,
+         });
+      },
       routes() { 
          this.namespace = 'api';
          this.get('/transactions', () => {
-            return transactions;
+            return this.schema.all('transactions');
+         });
+
+         this.post('/transactions', (schema, request) => {
+            const data = JSON.parse(request.requestBody);
+            return schema.create('transactions', data);
          });
       }
    });
