@@ -5,7 +5,7 @@ import { Dashboard } from "./components/Dashboard";
 import { TransactionModal } from './components/TransactionModal';
 
 export default function App() {
-  const [isNewTransactionModalOpen, setIsNewTransactionModalOpen] = useState(true);
+  const [isNewTransactionModalOpen, setIsNewTransactionModalOpen] = useState(false);
 
   function handleManipulateNewTransactionModal(type: 'close' | 'open') {
     setIsNewTransactionModalOpen(
